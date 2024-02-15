@@ -27,6 +27,18 @@ app.get('/product', (req, res) => {
 
 });
 
+app.get('/db_count', (req, res) => {
+  db.query("SELECT COUNT (*) FROM product", (err, result) => {
+    if (err) {
+      console.log(err);
+
+    } else {
+      res.send(result);
+    }
+  });
+
+});
+
 app.post("/create", (req, res) => {
 
   const product_img = req.body.product_img;
@@ -77,37 +89,17 @@ app.get('/editproduct/:product_id',(req,res)=>{
 
 app.put('/update/:product_id',(req,res)=>{
   
-  const sql = "UPDATE product SET product_name = ? WHERE product_id =?"
+  const sql = "UPDATE product SET product_name = ? , product_type = ? , product_brand = ? , product_price = ? , product_number =? WHERE product_id =?"
   
   const product_id =req.params.product_id;
-  db.query(sql,[req.body.product_name,product_id],(err,result)=>{
+  db.query(sql,[req.body.product_name,req.body.product_type,req.body.product_brand,req.body.product_price,req.body.product_number,product_id],(err,result)=>{
     if(err) return res.json("error") 
     return res.json({updated: true})
   })  
 
 })
 
-// app.put('/update',(req,res)=>
-// {
-//   const product_id = req.body.product_id
-//   const product_img = req.body.product_img;
-//   const product_name = req.body.product_name;
-//   const product_type = req.body.product_type;
-//   const product_brand = req.body.product_brand;
-//   const product_detail = req.body.product_detail;
-//   const product_price = req.body.product_price;
-//   const product_number = req.body.product_number;
-//   db.query("UPDATE product SET product_name = ?, product_type= ?,product_brand = ?,product_detail = ?,product_price=? ,product_number = ? WHERE product_id = ?",
-//   [product_name,product_type,product_brand,product_detail,product_price,product_number,product_id],(err,result)=>{
-//     if(err)
-//     {
-//       console.log(err)
 
-//     }else{
-//       res.send(result);
-//     }
-//   })
-// })
 
 
 

@@ -44,7 +44,9 @@ export default function Quotation() {
             annotation: annotation,
             phone_admin: phone_admin,
             phone_user: phone_user,
-            email: email
+            email: email,
+            address_user:address_user
+            
 
         }).then(() => {
             setquotationList([
@@ -57,7 +59,8 @@ export default function Quotation() {
                     annotation: annotation,
                     phone_admin: phone_admin,
                     phone_user: phone_user,
-                    email: email
+                    email: email,
+                    address_user:address_user
                 },
             ]);
         });
@@ -75,36 +78,6 @@ export default function Quotation() {
     }
 
 
-    const editquotation = () => {
-        Axios.post("http://localhost:3001/edit", {
-            phone_admin: phone_admin,
-            address_user: address_user,
-            phone_user: phone_user,
-            date_: date_,
-            title_quotation: title_quotation,
-            annotation: annotation,
-            no_quotation: no_quotation,
-            id_tax_user: id_tax_user,
-            id_tax_admin: id_tax_admin,
-            email:email
-        }).then(() => {
-            setquotationList([
-                ...quotationList,
-                {
-                    phone_admin: phone_admin,
-                    address_user: address_user,
-                    phone_user: phone_user,
-                    date_: date_,
-                    title_quotation: title_quotation,
-                    annotation: annotation,
-                    no_quotation: no_quotation,
-                    id_tax_user: id_tax_user,
-                    id_tax_admin: id_tax_admin,
-                    email:email
-                },
-            ]);
-        });
-    };
 
 
 
@@ -127,7 +100,7 @@ export default function Quotation() {
                         <p> Date: {val.date_}</p>
                         <p className='button' onClick={() => { deletequotation(val.no_quotation) }}><Delete />Delete</p>
                         <p className='button' onClick={() => { setvisible(true); setvisible(val.no_quotation); }} ><Edit />Edit</p>
-                        <Link to="/Detaildown"> <p className='button'  ><VisibilityIcon /> View</p> </Link>
+                     
 
                     </div>
 
@@ -188,67 +161,10 @@ export default function Quotation() {
 
                 </form>
                 <button onClick={addQuotation}>add</button>
-                <Link to="/Detaildown">
-                    <button>View</button>
-                </Link>
+          
 
 
             </Model>
-            {/* <Model isOpen={visible}>
-            <h1>Edit Quotation</h1>
-            <p className='close' onClick={()=>setvisible(false)}><Close /></p>
-            <form className='form' action="">
-                <div className='block1'>
-                <div>
-                <p>No Quotation</p>
-                <TextField id="outlined-basic" label="No Quotation" variant="outlined" onChange={(event) => {setno_quotation(event.target.value)} } />
-                </div>
-                <div>
-                <p>Title</p>
-                <TextField id="outlined-basic" label="Title" variant="outlined" onChange={(event) => {settitle_quotation(event.target.value)} }/>
-                </div>
-                <div>
-                <p>Date</p>
-                <TextField id="outlined-basic" label="Date" variant="outlined" onChange={(event) => {setdate_(event.target.value)} }/>
-                </div>
-                <div>
-                <p>Address User</p>
-                <TextField id="outlined-basic" label="Date" variant="outlined" onChange={(event) => {setaddress_user(event.target.value)} }/>
-                </div>
-                </div>
-                <div className='block2'>
-                
-                <div>
-                <p>Phone Admin</p>
-                <TextField id="outlined-basic" label="Phone Admin" variant="outlined" onChange={(event) => {setphone_admin(event.target.value)} }/>
-                </div>
-                <div>
-                <p>Phone user</p>
-                <TextField id="outlined-basic" label="Phone user" variant="outlined" onChange={(event) => {setphone_user(event.target.value)} }/>
-                </div>
-                <div>
-                <p>Id tax user</p>
-                <TextField id="outlined-basic" label="Id tax user" variant="outlined" onChange={(event) => {setid_tax_user(event.target.value)} }/>
-                </div>
-                <div>
-                <p>Id tax Admin</p>
-                <TextField id="outlined-basic" label="Id tax Admin" variant="outlined" onChange={(event) => {setid_tax_admin(event.target.value)} }/>
-                </div>
-                         <div>
-                <p>Annotation</p>
-                <TextField id="outlined-basic" label="Annotation" variant="outlined" onChange={(event) => {setannotation(event.target.value)} }/>
-                </div>
-                </div>
-                
-              
-            </form>
-            <button onClick={addQuotation}>add</button>
-            <Link to="/Detaildown">
-        <button>View</button>
-      </Link>
-
-        </Model> */}
-
 
 
 

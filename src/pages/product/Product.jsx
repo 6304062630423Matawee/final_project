@@ -2,7 +2,7 @@ import "./product.css";
 import React from 'react'
 import Axios from 'axios'
 import Button from '@mui/material/Button';
-import { Delete, Edit, Add, Close, Update } from "@mui/icons-material"
+import { Delete, Edit, Add, Close, Update, FirstPage } from "@mui/icons-material"
 import { useState, useEffect } from 'react';
 import Model from 'react-modal'
 import Box from '@mui/material/Box';
@@ -18,7 +18,8 @@ import { Link } from 'react-router-dom'
 
 export default function Product() {
 
-    const [editvisible, editsetvisible] = useState(false)
+
+    
     const [visible, setvisible] = useState(false)
     const [product_img, setproduct_img] = useState("");
     const [product_name, setproduct_name] = useState("");
@@ -28,6 +29,7 @@ export default function Product() {
     const [product_price, setproduct_price] = useState(0);
     const [product_number, setproduct_number] = useState(0);
     const [productList, setproductList] = useState([]);
+    const [db_count,setdb_count] = useState("");
 
  
 
@@ -42,7 +44,11 @@ export default function Product() {
         });
 
     }
+    // axios.get('http://localhost:3001/db_count').then((response)=>{
+    //     setdb_count(response.data);
 
+    // })
+    // console.log(db_count)
 
 
 
@@ -92,26 +98,17 @@ export default function Product() {
 
     }
 
+    // const [currentPage,setcurrentPage] = useState(1)
+    // const recordPerPage = 5
+    // const lastIndex = currentPage* recordPerPage
+    // const firstIndex = lastIndex - recordPerPage
+    // const records = Data.slice(Data.length/recordPerPage)
+    // const npage =  Math.celi(Data.length/recordPerPage)
+    // const numbers = [...Array(npage + 1).key()].slice(1)
 
-    // const editproduct = (product_id) => {
-    //     axios.put("http://localhost:3001/update", { product_name: Newproduct_name, product_type: Newproduct_type, product_brand: Newproduct_brand, product_detail: Newproduct_detail, product_price: Newproduct_price, product_number: Newproduct_number, prodict_id: product_id }).then((response) => {
-    //         setproductList(
-    //             productList.map((val) => {
-    //                 return val.prodict_id == product_id ? {
-    //                     product_id: val.prodict_id,
-    //                     product_name: val.Newproduct_name,
-    //                     product_type: val.Newproduct_type,
-    //                     product_brand: val.Newproduct_brand,
-    //                     product_detail: val.Newproduct_detail,
-    //                     product_price: val.Newproduct_price,
-    //                     product_number: val.Newproduct_number,
 
-    //                 } : val;
-    //             })
-    //         )
-    //     })
 
-    // }
+   
     
 
 
@@ -164,65 +161,30 @@ export default function Product() {
 
                 </tbody>
             </table>
+            {/* <nav>
+                <ul className="pagination">
+                    <li>
+                        <a href="#" className="page-link" onClick={prePage}>Prev</a>
+                    </li>
+                    {
+                        numbers.map((n,i)=> (
+                            <li className={`page-item ${currentPage === n ? 'active': ''}`} key ={i}>
+                                <a href="#" className="page-item"
+                                onClick={changePage}></a>
+                            </li>
+                        ))
+                    }
+                    <li>
+                        <a href="#" className="page-link" onClick={nextPage}>Next</a>
+                    </li>
+                   
+                </ul>
+            </nav> */}
 
             <p className='add' onClick={() => setvisible(true)}> <Add />ADD</p>
 
 
-                {/* <Model id='Model' isOpen={true} >
-                    <h1>Edit Product<p className='close' onClick={() => editsetvisible(false)}><Close /></p></h1>
 
-                    <hr></hr>
-                    <form>
-                        <div>
-                            <p>Product picture</p>
-                            <input required type="file" id="myFile" name="filename" onChange={(event) => { setNewproduct_img(event.target.value) }}></input>
-                        </div>
-                        <div class="form-group">
-                            <label for="formGroupExampleInput2">Product Name</label>
-                            <input required type="text" class="form-control" id="formGroupExampleInput2" placeholder="" onChange={(event) => { setNewproduct_name(event.target.value) }}></input>
-                        </div>
-                        <div>
-                            <p>Product Type</p>
-                            <select required onChange={(event) => { setNewproduct_type(event.target.value) }}>
-                                <option value="">เลือกประเภท</option>
-                                <option value={"แอร์ติดผนัง"}>แอร์ติดผนัง</option>
-                                <option value={"แอร์แขวน"} >แอร์แขวน</option>
-                                <option value={"สี่ทิศทาง"}>สี่ทิศทาง</option>
-                                <option value={"แอร์ตั้งพื้น"}>แอร์ตั้งพื้น</option>
-                            </select>
-                        </div>
-                        <div>
-                            <p>Product Brand</p>
-                            <select required onChange={(event) => { setNewproduct_brand(event.target.value) }}>
-                                <option selected value="">ระบุยี่ห้อ</option>
-                                <option value={"A"}>A</option>
-                                <option value={"B"}>B</option>
-                                <option value={"C"}>C</option>
-                                <option value={"D"}>D</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="formGroupExampleInput2">Product Detail</label>
-                            <input required type="text" class="form-control" id="formGroupExampleInput2" placeholder="" onChange={(event) => { setNewproduct_detail(event.target.value) }}></input>
-                        </div>
-                        <div class="form-group">
-                            <label for="formGroupExampleInput2">Product Price</label>
-                            <input required type="text" class="form-control" id="formGroupExampleInput2" placeholder="" onChange={(event) => { setNewproduct_price(event.target.value) }}></input>
-                        </div>
-                        <div class="form-group">
-                            <label for="formGroupExampleInput2">Product Number</label>
-                            <input required type="text" class="form-control" id="formGroupExampleInput2" placeholder="" onChange={(event) => { setNewproduct_number(event.target.value) }}></input>
-                        </div>
-                        <br></br>
-
-                        <button onClick={editproduct} class="btn btn-primary" type="submit">Edit</button>
-
-                    </form>
-
-
-                </Model>
-
-             */}
 
 
 
@@ -283,70 +245,7 @@ export default function Product() {
             </Model>
 
 
-            {/* {selectedproduct && (
-                <Model id='Model' isOpen={true}>
-                <h1>Edit Product <p className='close' onClick={() => setSelectedproduct(null)}><Close /></p></h1>
-                <hr></hr>             
-                  <form>
-                    <div>
-                        <p>Product picture</p>
-                        {selectedproduct.product_img}
-                    </div>
-                    <br></br>
-                    <div class="form-group">
-                        <label for="formGroupExampleInput2">Product Name</label>
-                        <input required type="text" class="form-control" id="formGroupExampleInput2" placeholder={selectedproduct.product_name}  onChange={(event) => {setNewproduct_name(event.target.value)}} ></input>
-                    </div>
-                    <br></br>
-                    <div>
-                        <p>Product Type</p>
-                        <p>{selectedproduct.product_type}</p>
-                        เปลี่ยน <select required >
-                            <option value="">เลือกประเภท</option>
-                            <option value={"แอร์ติดผนัง"}>แอร์ติดผนัง</option>
-                            <option value={"แอร์แขวน"} >แอร์แขวน</option>
-                            <option value={"สี่ทิศทาง"}>สี่ทิศทาง</option>
-                            <option value={"แอร์ตั้งพื้น"}>แอร์ตั้งพื้น</option>
-                        </select>
-                    </div>
-                    <br></br>
-                    <div>
-                        <p>Product Brand</p>
-                        <p>{selectedproduct.product_brand}</p>
-                        เปลี่ยน <select required >
-                            <option selected value="">ระบุยี่ห้อ</option>
-                            <option value={"A"}>A</option>
-                            <option value={"B"}>B</option>
-                            <option value={"C"}>C</option>
-                            <option value={"D"}>D</option>
-                        </select>
-                    </div>
-                    <br></br>
-                    <div class="form-group">
-                        <label for="formGroupExampleInput2">Product Detail</label>
-                        <input required type="text" class="form-control" id="formGroupExampleInput2" placeholder="" value={selectedproduct.product_detail} onChange={(event) => { setNewproduct_detail(event.target.value) }}></input>
-                    </div>
-                    <br></br>
-                    <div class="form-group">
-                        <label for="formGroupExampleInput2">Product Price</label>
-                        <input required type="text" class="form-control" id="formGroupExampleInput2" placeholder="" value={selectedproduct.product_price}  onChange={(event) => { setNewproduct_price(event.target.value) }}></input>
-                    </div>
-                    <br></br>
-                    <div class="form-group">
-                        <label for="formGroupExampleInput2">Product Number</label>
-                        <input required type="text" class="form-control" id="formGroupExampleInput2" placeholder=""  value={selectedproduct.product_number } ></input>
-                    </div>
-                    <br></br>
-                    
-                    <button  onClick={editproduct} class="btn btn-primary" type="submit">Edit</button>
-
-                </form>
-
-             
-            </Model>
-            )} */}
-
-
+            
 
 
 
@@ -358,4 +257,20 @@ export default function Product() {
 
 
     )
+    // function prePage() {
+    //     if(currentPage !== FirstPage){
+    //         setcurrentPage(currentPage - 1)
+    //     }
+
+    // }
+    // function changePage(id){
+    //     setcurrentPage(id)
+
+    // }
+    // function nextPage()
+    // {
+    //     if(currentPage !== lastIndex){
+    //         setcurrentPage(currentPage + 1)
+    //     }
+    // }
 }
