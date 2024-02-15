@@ -4,7 +4,8 @@ import Product from "./pages/product/Product";
 import Employee from "./pages/employee/Employee";
 import Quotation from "./pages/quotation/Quotation";
 import Detaildown from "./pages/quotation/Detaildown";
-import React, { useState, useEffect } from 'react';
+import Editproduct from "./pages/product/Editproduct";
+
 import "./app.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
@@ -26,8 +27,8 @@ function App() {
               <Route path="Employee" element={<Employee />} />
               <Route path="Quotation" element={<Quotation />} />
               <Route path="Detaildown" element={<Detaildown />} />
+              <Route path="/Editproduct/:product_id" element={<Editproduct />} />
             </Route>
-
           </Routes>
         </BrowserRouter>
       </div>
