@@ -16,6 +16,8 @@ import { Link } from 'react-router-dom'
 
 
 
+
+
 export default function Product() {
 
 
@@ -23,13 +25,14 @@ export default function Product() {
     const [visible, setvisible] = useState(false)
     const [product_img, setproduct_img] = useState("");
     const [product_name, setproduct_name] = useState("");
-    const [product_type, setproduct_type] = useState("");
-    const [product_brand, setproduct_brand] = useState("");
+    const [product_type_id, setproduct_type_id] = useState("");
+    const [product_brand_id, setproduct_brand_id] = useState("");
     const [product_detail, setproduct_detail] = useState("");
+    const [product_btu, setproduct_btu] = useState("");
     const [product_price, setproduct_price] = useState(0);
-    const [product_number, setproduct_number] = useState(0);
+    const [product_quantity, setproduct_quantity] = useState(0);
     const [productList, setproductList] = useState([]);
-    const [db_count,setdb_count] = useState("");
+    
 
  
 
@@ -44,12 +47,7 @@ export default function Product() {
         });
 
     }
-    // axios.get('http://localhost:3001/db_count').then((response)=>{
-    //     setdb_count(response.data);
-
-    // })
-    // console.log(db_count)
-
+  
 
 
 
@@ -58,17 +56,18 @@ export default function Product() {
     }, []);
 
     const addProduct = () => {
-        if (product_name == "" || product_img == "" || product_type == "" || product_brand == "" || product_detail == "" || product_price == "" || product_number == "") {
-
+        if (product_name == "" || product_img == "" || product_type_id == "" || product_brand_id == "" || product_detail == "" || product_price == "" || product_quantity == ""|| product_quantity == "") {
+            
         } else {
             Axios.post("http://localhost:3001/create", {
                 product_img: product_img.split("\\").pop(),
                 product_name: product_name,
-                product_type: product_type,
-                product_brand: product_brand,
+                product_type_id: product_type_id,
+                product_brand_id: product_brand_id,
                 product_detail: product_detail,
                 product_price: product_price,
-                product_number: product_number,
+                product_quantity: product_quantity,
+                product_btu : product_btu
             }).then(() => {
 
                 setproductList([
@@ -76,11 +75,12 @@ export default function Product() {
                     {
                         product_img: product_img.split("\\").pop(),
                         product_name: product_name,
-                        product_type: product_type,
-                        product_brand: product_brand,
+                        product_type_id: product_type_id,
+                        product_brand_id: product_brand_id,
                         product_detail: product_detail,
                         product_price: product_price,
-                        product_number: product_number,
+                        product_quantity: product_quantity,
+                        product_btu : product_btu
                     },
                 ]);
             });
@@ -122,7 +122,7 @@ export default function Product() {
     return (
 
 
-        <div >
+        <div className="product">
 
 
             <h3>Product manage</h3>
@@ -136,8 +136,9 @@ export default function Product() {
                         <th>IMG</th>
                         <th>Type</th>
                         <th>Brand</th>
+                        <th>BTU</th>
                         <th>Price</th>
-                        <th>Number</th>
+                        <th>Quantity</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -146,11 +147,13 @@ export default function Product() {
                             <tr>
                                 <td>{val.product_id}</td>
                                 <td>{val.product_name}</td>
-                                <td>{val.product_img}</td>
-                                <td>{val.product_type}</td>
-                                <td>{val.product_brand}</td>
+                                <td><img src={`../../picture/${val.product_img}`}  /></td>
+                                <td>{val.product_type_name}</td>
+                                <td>{val.product_brand_name}</td>
+                                <td>{val.product_btu}</td>
                                 <td>{val.product_price}</td>
-                                <td>{val.product_number}</td>
+                                <td>{val.product_quantity}</td>
+                                
                                 <Link to={`/Editproduct/${val.product_id}`} type="button" class="btn btn-dark" ><Edit /></Link>
                                 <button type="button" class="btn btn-danger" variant="outlined" color="error" onClick={() => { deleteproduct(val.product_id) }}><Delete /></button>
 
@@ -181,7 +184,8 @@ export default function Product() {
                 </ul>
             </nav> */}
 
-            <p className='add' onClick={() => setvisible(true)}> <Add />ADD</p>
+            <button class="btn btn-primary"  style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }} onClick={() => setvisible(true)}> <Add />ADD</button>
+            
 
 
 
@@ -190,7 +194,7 @@ export default function Product() {
 
 
             <Model id='Model' isOpen={visible}>
-                <h1>ADD product<p className='close' onClick={() => setvisible(false)}><Close /></p></h1>
+                <h1 style={{ display: 'flex' }}>ADD product<p className='close' onClick={() => setvisible(false)} style={{ marginLeft: 'auto' }}><Close /></p> </h1>
                 <hr></hr>
 
                 <form>
@@ -204,22 +208,26 @@ export default function Product() {
                     </div>
                     <div>
                         <p>Product Type</p>
-                        <select required onChange={(event) => { setproduct_type(event.target.value) }}>
+                        <select required onChange={(event) => { setproduct_type_id(event.target.value) }}>
                             <option value="">เลือกประเภท</option>
-                            <option value={"แอร์ติดผนัง"}>แอร์ติดผนัง</option>
-                            <option value={"แอร์แขวน"} >แอร์แขวน</option>
-                            <option value={"สี่ทิศทาง"}>สี่ทิศทาง</option>
-                            <option value={"แอร์ตั้งพื้น"}>แอร์ตั้งพื้น</option>
+                            <option value={"A1"}>แอร์ติดผนัง</option>
+                            <option value={"A2"} >แอร์แขวน</option>
+                            <option value={"A3"}>สี่ทิศทาง</option>
+                            <option value={"A4"}>แอร์ตั้งพื้น</option>
                         </select>
                     </div>
                     <div>
                         <p>Product Brand</p>
-                        <select required onChange={(event) => { setproduct_brand(event.target.value) }}>
+                        <select required onChange={(event) => { setproduct_brand_id(event.target.value) }}>
                             <option selected value="">ระบุยี่ห้อ</option>
-                            <option value={"A"}>A</option>
-                            <option value={"B"}>B</option>
-                            <option value={"C"}>C</option>
-                            <option value={"D"}>D</option>
+                            <option value={"1"}>Daikin</option>
+                            <option value={"2"}>Carrier</option>
+                            <option value={"3"}>Panasonic</option>
+                            <option value={"4"}>Fujitsu</option>
+                            <option value={"5"}>LG</option>
+                            <option value={"6"}>Samsung</option>
+                            <option value={"7"}>Sharp</option>
+                            <option value={"8"}>Hitachi</option>
                         </select>
                     </div>
                     <div class="form-group">
@@ -231,9 +239,14 @@ export default function Product() {
                         <input required type="text" class="form-control" id="formGroupExampleInput2" placeholder="" onChange={(event) => { setproduct_price(event.target.value) }}></input>
                     </div>
                     <div class="form-group">
-                        <label for="formGroupExampleInput2">Product Number</label>
-                        <input required type="text" class="form-control" id="formGroupExampleInput2" placeholder="" onChange={(event) => { setproduct_number(event.target.value) }}></input>
+                        <label for="formGroupExampleInput2">product_quantity</label>
+                        <input required type="text" class="form-control" id="formGroupExampleInput2" placeholder="" onChange={(event) => { setproduct_quantity(event.target.value) }}></input>
                     </div>
+                    <div class="form-group">
+                        <label for="formGroupExampleInput2">product_btu</label>
+                        <input required type="text" class="form-control" id="formGroupExampleInput2" placeholder="" onChange={(event) => { setproduct_btu(event.target.value) }}></input>
+                    </div>
+                    
                     <br></br>
 
                     <button onClick={addProduct} class="btn btn-primary" type="submit">ADD</button>

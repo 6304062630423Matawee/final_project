@@ -14,7 +14,7 @@ export default function Sidebar() {
           <h3 className='title'><Dashboard /><a className="a">Dashborad</a></h3>
           <h3 className='title'><Inventory /><Link to = "/Product" className="a"  >Manage Product</Link></h3>
           <h3 className='title'><Groups /><Link to = "/Employee" className="a">Manage Employee</Link></h3>
-          <h3 className='title'><EventNote /><a className="a">schedule</a></h3>
+          <h3 className='title'><EventNote /><Link to ="/Calendar" className="a">schedule</Link></h3>
           <h3 className='title'><EventNote /><Link to ="/Quotation" className="a">Quatation</Link></h3>
         </div>
       </div>

@@ -1,4 +1,4 @@
-*
+/* *
 {
     flex: 4;
 }
@@ -6,24 +6,16 @@ h3
 {
     font-size: 40px;
     margin: 50px;
-    
-}
-.quotation_table
-{
-    background-color: rgb(190, 162, 255);
-    display: flex;
-    border-radius: 30px;
-    margin: 10px;
-    padding: 40px;
 
 }
-.button
+
+
+.img
 {
-    cursor: pointer;
-    text-align: center;
     display: flex;
-    
+    align-items: center;
 }
+
 .add
 {
     cursor: pointer;
@@ -32,7 +24,7 @@ h3
     background-color: rgb(172, 172, 250);
     padding: 10px;
     border-radius: 30px;
-    float: right;
+
     margin-right: 30px;
 }
 .close
@@ -40,19 +32,66 @@ h3
     float: right;
     margin-right: 30px;
 }
-.block1
+
+#Model
 {
-    display: inline;
-    margin: 30px;
+    width: 800px;
+    height: 500px;
+    margin-left: 600px;
+
 
 }
-.block2
-{
-    display: inline;
-    margin: 30px;
-
+#ADD{
+ 
 }
-.form
-{
+.Model {
     display: flex;
-}
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .blocks-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+  .topic{
+    text-align: center; 
+    font-weight: bold; 
+  }
+
+  .block3 {
+    width: 48%;
+    margin-left: 5%; 
+  }
+
+  .block4 {
+    width: 48%; 
+    margin-left: 20%; 
+    margin-right: 3%;
+  }
+
+  .box{
+    font-size: 22px; 
+  }
+  hr.style1{
+    border-top: 1px solid #8c8b8b;
+  }
+
+  .logo{ 
+    width: 350px; 
+    height: auto; 
+    margin-bottom: 6%;
+  }
+
+  table.detail {
+    border-collapse: collapse;
+    width: 100%; 
+  }
+
+  table.detail th,
+  table.detail td {
+    border: 1px solid black; 
+    padding: 8px; 
+  } */

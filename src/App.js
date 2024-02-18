@@ -5,7 +5,7 @@ import Employee from "./pages/employee/Employee";
 import Quotation from "./pages/quotation/Quotation";
 import Editproduct from "./pages/product/Editproduct";
 import SignUp from "./pages/Login/SignUp";
-
+import Calendar from "./pages/calender/Calendar";
 import "./app.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
@@ -16,7 +16,7 @@ function App() {
 
 
   return (
-    <div className="main">
+    <div className="m-main" >
 
       <BrowserRouter>
 
@@ -29,6 +29,7 @@ function App() {
               <>
                 <Sidebar />
                 <Quotation />
+                
               
               </>
             } />
@@ -43,6 +44,14 @@ function App() {
               <>
                 <Sidebar />
                 <Employee />
+                
+              
+              </>
+            } />
+             <Route path="Calendar" element={
+              <>
+                <Sidebar />
+                <Calendar />
               
               </>
             } />

@@ -1,8 +1,15 @@
 .sidebar
 {
-    flex: 0.7;
+    
     height: calc(100vh - 0px);
     background-color: rgb(225, 239, 255);
+    width: 15rem;
+   
+
+    margin: 0px;
+    
+   
+   
    
 }
 .title
