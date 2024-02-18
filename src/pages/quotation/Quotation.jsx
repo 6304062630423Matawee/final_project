@@ -60,28 +60,16 @@ export default function Quotation() {
     const [selectedQuotation, setSelectedQuotation] = useState(null);
     const [products, setProducts] = useState([]);
 
-    // const handleViewDetail = async (no_quotation) => {
-    //     setSelectedQuotation(no_quotation);
-    //     try {
-    //         const response = await fetch(`http://localhost:3001/quotation_detail/${no_quotation}`);
-    //         const data = await response.json();
-    //         setProducts(data);
-    //     } catch (error) {
-    //         console.error('Error fetching product details:', error);
-    //     }
-       
-
-    // };
-
-    const getquotationdetail = (no_quotation) => {
-        Axios.get(`http://localhost:3001/quotation_detail/${no_quotation}`).then((response) => {
-            setSelectedQuotation(response.data);
-        });
-
-    }
-    
- 
-    
+    const handleViewDetail = async (quotation) => {
+        setSelectedQuotation(quotation);
+        try {
+            const response = await fetch(`http://localhost:3001/quotation_detail/${quotation.no_quotation}`);
+            const data = await response.json();
+            setProducts(data);
+        } catch (error) {
+            console.error('Error fetching product details:', error);
+        }
+    };
 
     //เพิ่ม pdf
     const pdfRef = useRef();
@@ -122,6 +110,8 @@ export default function Quotation() {
     const [id_tax_admin, setid_tax_admin] = useState("");
     const [email, setemail] = useState("");
     const [product_id, setproduct_id]= useState("");
+     const [product_name, setproduct_name]= useState("");
+ 
     const [quotation_product_brand, setquotation_product_brand] = useState([]);
     const [quotation_product_type, setquotation_product_type] = useState([]);
     const [quotationList, setquotationList] = useState([]);
@@ -186,9 +176,7 @@ export default function Quotation() {
                 })
             )
         })
-
     }
-
     return (
         <div >
             <h3>Quotation manage</h3>
@@ -209,7 +197,7 @@ export default function Quotation() {
                                 <td>{val.date_}</td>
                                 <Link to={`/Editquotation/${val.no_quotation}`} type="button" class="btn btn-dark" ><Edit /></Link>
                                 <button type="button" class="btn btn-danger" variant="outlined" color="error" onClick={() => { deletequotation(val.no_quotation) }}><Delete /></button>
-                                <button type="button" class="btn btn-danger" variant="outlined" color="error" onClick={() => { getquotationdetail(val.no_quotation)}}><VisibilityIcon /></button>
+                                <button type="button" class="btn btn-danger" variant="outlined" color="error" onClick={() => { handleViewDetail(val)}}><VisibilityIcon /></button>
 
                             </tr>
                         )
@@ -322,26 +310,15 @@ export default function Quotation() {
                      </tr>
                  </thead>
                  <tbody>
+                 {products.map((val, index) => (
+            <tr key={index}>
+              <td>{val.product_name}</td>
+              <td>{val.product_btu}</td>
+              <td>{val.product_price}</td>
+            </tr>
+          ))}
+        </tbody>
                  
-                         <tr >
-                          {/* เพิ่มปุ่มปิดหน้าต่าง    <td>{selectedQuotation.product_id}</td> */}
-                           
-                             
-                         
-                         </tr>
-                       
-                            <tr>
-                                <td>{selectedQuotation.product_id}</td>
-                                <td>{selectedQuotation.product_name}</td>
-                               
-                               
-                              
-
-                            </tr>
-                      
-
-                 
-                 </tbody>
              </table>
                     </div>
                     {/* เพิ่มปุ่มปิดหน้าต่าง */}
@@ -349,6 +326,7 @@ export default function Quotation() {
                     {/* เพิ่มปุ่มdownload */}
                     <button className="btn btn-primary" onClick={downloadPDF}>Download PDF</button>
                 </Model>
+                
             )}
         </div>
 

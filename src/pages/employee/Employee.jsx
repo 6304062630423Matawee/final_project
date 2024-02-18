@@ -5,7 +5,7 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import { useState, useEffect } from 'react';
 import Model from 'react-modal'
 import TextField from '@mui/material/TextField';
-// import "./employee.css";
+import "./employee.css";
 import { Link } from 'react-router-dom'
 
 
